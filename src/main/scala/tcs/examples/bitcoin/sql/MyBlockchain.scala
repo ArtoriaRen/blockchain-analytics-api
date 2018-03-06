@@ -15,7 +15,11 @@ object MyBlockchain{
   def main(args: Array[String]): Unit ={
 
     val blockchain = BlockchainLib.getBitcoinBlockchain(new BitcoinSettings("l27ren", "UofW2016", "8332", MainNet))
-    val mySQL = new DatabaseSettings("test", MySQL, "root", "UofW2016")
+
+    // credentials on styx.
+    val mySQL = new DatabaseSettings("bitcoin", MySQL, "l27ren", "beePhie4", "styx01")
+    // credentials on desk.
+//    val mySQL = new DatabaseSettings("test", MySQL, "root", "UofW2016")
 
     val startTime = System.currentTimeMillis()/1000
 
