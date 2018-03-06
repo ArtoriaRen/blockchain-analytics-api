@@ -53,8 +53,8 @@ object MyBlockchain{
 //      sql"""insert into output(coinbaseTxHash, outputScript) values (?, ?)""",
 //      mySQL)
 
-    // scan the blockchain from first block to block height 10
-    blockchain.end(10).foreach(block => {
+    // scan the blockchain from first block to block height 1000
+    blockchain.end(1000).foreach(block => {
       // filter out coinbases coinbaseTxs
       block.bitcoinTxs.filter(tx => tx.getInputsSum()==0).foreach(tx => {
 
