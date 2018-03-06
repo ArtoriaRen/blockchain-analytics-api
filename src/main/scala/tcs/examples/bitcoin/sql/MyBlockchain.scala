@@ -17,45 +17,45 @@ object MyBlockchain{
     val blockchain = BlockchainLib.getBitcoinBlockchain(new BitcoinSettings("l27ren", "UofW2016", "8332", MainNet))
 
     // credentials on styx.
-    val mySQL = new DatabaseSettings("bitcoin", MySQL, "l27ren", "beePhie4", "styx01")
+//    val mySQL = new DatabaseSettings("bitcoin", MySQL, "l27ren", "beePhie4", "styx01")
     // credentials on desk.
-//    val mySQL = new DatabaseSettings("test", MySQL, "root", "UofW2016")
+    val mySQL = new DatabaseSettings("test", MySQL, "root", "UofW2016")
 
     val startTime = System.currentTimeMillis()/1000
 
     val txTable = new Table(sql"""
-      create table if not exists transaction(
+      create table if not exists coinbaseTx(
         txid int(10) unsigned auto_increment not null primary key,
-        transactionHash varchar(256) not null,
+        coinbaseTxHash varchar(256) not null,
         blockHash varchar(256) not null,
         blockHeight BIGINT not null,
         timestamp TIMESTAMP not null,
         outputSum BIGINT unsigned
       ) """,
-      sql"""insert into transaction(transactionHash, blockHash, blockHeight, timestamp, outputSum) values (?, ?, ?, ?, ?)""",
+      sql"""insert into coinbaseTx(coinbaseTxHash, blockHash, blockHeight, timestamp, outputSum) values (?, ?, ?, ?, ?)""",
       mySQL)
 
 //    val inTable = new Table(sql"""
 //      create table if not exists input(
 //        id int(10) unsigned auto_increment not null primary key,
-//        transactionHash varchar(256) not null,
+//        coinbaseTxHash varchar(256) not null,
 //        inputScript text not null
 //      ) """,
-//      sql"""insert into input(transactionHash, inputScript) values (?, ?)""",
+//      sql"""insert into input(coinbaseTxHash, inputScript) values (?, ?)""",
 //      mySQL)
 
 //    val outTable = new Table(sql"""
 //      create table if not exists output(
 //        id int(10) unsigned auto_increment not null primary key,
-//        transactionHash varchar(256) not null,
+//        coinbaseTxHash varchar(256) not null,
 //        outputScript text not null
 //      ) """,
-//      sql"""insert into output(transactionHash, outputScript) values (?, ?)""",
+//      sql"""insert into output(coinbaseTxHash, outputScript) values (?, ?)""",
 //      mySQL)
 
     // scan the blockchain from first block to block height 10
     blockchain.end(10).foreach(block => {
-      // filter out coinbases transactions
+      // filter out coinbases coinbaseTxs
       block.bitcoinTxs.filter(tx => tx.getInputsSum()==0).foreach(tx => {
 
         txTable.insert(Seq(tx.hash.toString, block.hash.toString, block.height, convertDate(block.date), tx.getOutputsSum()))
