@@ -15,6 +15,7 @@ import scala.collection.mutable
   * @param redeemedOutIndex Index of the output redeemed (w.r.t. the transaction containing the output);
   *                         null if the enclosing transaction is coinbase.
   * @param isCoinbase True if the enclosing transaction is coninbase.
+  *                   RLY: isCoinbase==True means this input spends the output of a coinbase txn.
   * @param inScript Input script.
   */
 class BitcoinInput(

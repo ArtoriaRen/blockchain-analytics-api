@@ -9,7 +9,7 @@ import tcs.utils.DateConverter.convertDate
 
 
 /**
-  * Created by Livio on 14/06/2017.
+  * Created by Liuyang Ren on 06/03/2018.
   */
 object MyBlockchain{
   def main(args: Array[String]): Unit ={
@@ -17,9 +17,10 @@ object MyBlockchain{
     val blockchain = BlockchainLib.getBitcoinBlockchain(new BitcoinSettings("l27ren", "UofW2016", "8332", MainNet))
 
     // credentials on styx.
-//    val mySQL = new DatabaseSettings("bitcoin", MySQL, "l27ren", "beePhie4", "styx01")
+    val mySQL = new DatabaseSettings("bitcoin", MySQL, "l27ren", "beePhie4", "styx01")
+
     // credentials on desk.
-    val mySQL = new DatabaseSettings("test", MySQL, "root", "UofW2016")
+//    val mySQL = new DatabaseSettings("test", MySQL, "root", "UofW2016")
 
     val startTime = System.currentTimeMillis()/1000
 
@@ -38,10 +39,11 @@ object MyBlockchain{
 //    val inTable = new Table(sql"""
 //      create table if not exists input(
 //        id int(10) unsigned auto_increment not null primary key,
-//        coinbaseTxHash varchar(256) not null,
-//        inputScript text not null
+//        txn varchar(256) not null,
+//        inputScript text,
+//        value BIGINT
 //      ) """,
-//      sql"""insert into input(coinbaseTxHash, inputScript) values (?, ?)""",
+//      sql"""insert into input(txn, inputScript, value) values (?, ?, ?)""",
 //      mySQL)
 
 //    val outTable = new Table(sql"""
@@ -55,18 +57,18 @@ object MyBlockchain{
 
     // scan the blockchain from first block to block height 1000
     blockchain.end(1000).foreach(block => {
-      // filter out coinbases coinbaseTxs
-      block.bitcoinTxs.filter(tx => tx.getInputsSum()==0).foreach(tx => {
+      // filter out coinbase transactions
+        block.bitcoinTxs.filter(tx => tx.inputs(0).redeemedOutIndex == -1).foreach(tx => {
 
         txTable.insert(Seq(tx.hash.toString, block.hash.toString, block.height, convertDate(block.date), tx.getOutputsSum()))
 
-//        tx.inputs.foreach(in => { inTable.insert(Seq(tx.hash.toString, in.inScript.toString)) })
+//        tx.inputs.foreach(in => { inTable.insert(Seq(tx.hash.toString, in.inScript.toString, in.value))})
 
 //        tx.outputs.foreach(out => { outTable.insert(Seq(tx.hash.toString, out.outScript.toString)) })
+          if (block.height == 170)
+            print(tx + "\n")
       })
 
-//      if (block.height % 10000 == 0)
-//        println(block.height)
     })
 
     txTable.close

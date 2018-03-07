@@ -30,7 +30,8 @@ class Table(
   // Initialize JDBC driver & connection pool
   var dataSource: DataSource = {
     val ds = new HikariDataSource()
-    ds.setJdbcUrl("jdbc:mysql://localhost:3306/" + dbSettings.database + "?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true")
+//    ds.setJdbcUrl("jdbc:mysql://localhost:3306/" + dbSettings.database + "?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true")
+    ds.setJdbcUrl("jdbc:mysql://" + dbSettings.host + ":" + dbSettings.port + "/" + dbSettings.database + "?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true")
     ds.addDataSourceProperty("autoCommit", "false")
     ds.setMaximumPoolSize(10)
     ds.addDataSourceProperty("user", dbSettings.user)
