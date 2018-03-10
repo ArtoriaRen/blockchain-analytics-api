@@ -1,0 +1,51 @@
+[0m[[0minfo[0m] [0mLoading project definition from /home/l27ren/blockchain/blockchain-analytics-api/project[0m
+[0m[[0minfo[0m] [0mSet current project to BlockchainDLib (in build file:/home/l27ren/blockchain/blockchain-analytics-api/)[0m
+[0m[[0minfo[0m] [0mRunning tcs.examples.bitcoin.sql.MyBlockchain [0m
+Mar 08, 2018 7:50:50 PM org.bitcoinj.core.Context getOrCreate
+WARNING: Implicitly creating context. This is a migration step and this message will eventually go away.
+Mar 08, 2018 7:50:50 PM org.bitcoinj.core.Context <init>
+INFO: Creating bitcoinj 0.14.5 context.
+Mar 08, 2018 7:50:50 PM com.zaxxer.hikari.HikariDataSource getConnection
+INFO: HikariPool-1 - Starting...
+Mar 08, 2018 7:50:51 PM com.zaxxer.hikari.HikariDataSource getConnection
+INFO: HikariPool-1 - Start completed.
+[0m[[31merror[0m] [0m(run-main-0) java.lang.OutOfMemoryError: Java heap space[0m
+java.lang.OutOfMemoryError: Java heap space
+	at com.mysql.cj.mysqla.io.Buffer.ensureCapacity(Buffer.java:99)
+	at com.mysql.cj.mysqla.io.Buffer.writeBytes(Buffer.java:341)
+	at com.mysql.cj.mysqla.io.Buffer.writeBytes(Buffer.java:310)
+	at com.mysql.cj.jdbc.PreparedStatement.fillSendPacket(PreparedStatement.java:2146)
+	at com.mysql.cj.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2013)
+	at com.mysql.cj.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:1970)
+	at com.mysql.cj.jdbc.PreparedStatement.executeLargeUpdate(PreparedStatement.java:5001)
+	at com.mysql.cj.jdbc.PreparedStatement.executeBatchedInserts(PreparedStatement.java:1505)
+	at com.mysql.cj.jdbc.PreparedStatement.executeBatchInternal(PreparedStatement.java:1209)
+	at com.mysql.cj.jdbc.StatementImpl.executeBatch(StatementImpl.java:1009)
+	at com.zaxxer.hikari.pool.ProxyStatement.executeBatch(ProxyStatement.java:128)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeBatch(HikariProxyPreparedStatement.java)
+	at scalikejdbc.DBConnectionAttributesWiredPreparedStatement.executeBatch(DBConnectionAttributesWiredPreparedStatement.scala:130)
+	at scalikejdbc.StatementExecutor.$anonfun$executeBatch$1(StatementExecutor.scala:335)
+	at scalikejdbc.StatementExecutor$$Lambda$97/366208142.apply(Unknown Source)
+	at scalikejdbc.StatementExecutor$NakedExecutor.apply(StatementExecutor.scala:18)
+	at scalikejdbc.StatementExecutor$$anon$1.scalikejdbc$StatementExecutor$LoggingSQLAndTiming$$super$apply(StatementExecutor.scala:319)
+	at scalikejdbc.StatementExecutor$LoggingSQLAndTiming.apply(StatementExecutor.scala:263)
+	at scalikejdbc.StatementExecutor$LoggingSQLAndTiming.apply$(StatementExecutor.scala:249)
+	at scalikejdbc.StatementExecutor$$anon$1.scalikejdbc$StatementExecutor$LoggingSQLIfFailed$$super$apply(StatementExecutor.scala:319)
+	at scalikejdbc.StatementExecutor$LoggingSQLIfFailed.apply(StatementExecutor.scala:296)
+	at scalikejdbc.StatementExecutor$LoggingSQLIfFailed.apply$(StatementExecutor.scala:295)
+	at scalikejdbc.StatementExecutor$$anon$1.apply(StatementExecutor.scala:319)
+	at scalikejdbc.StatementExecutor.executeBatch(StatementExecutor.scala:335)
+	at scalikejdbc.DBSession.$anonfun$batch$1(DBSession.scala:590)
+	at scalikejdbc.DBSession$$Lambda$95/1369639920.apply(Unknown Source)
+	at scalikejdbc.LoanPattern.using(LoanPattern.scala:18)
+	at scalikejdbc.LoanPattern.using$(LoanPattern.scala:16)
+	at scalikejdbc.ActiveSession.using(DBSession.scala:705)
+	at scalikejdbc.DBSession.batch(DBSession.scala:584)
+	at scalikejdbc.DBSession.batch$(DBSession.scala:574)
+	at scalikejdbc.ActiveSession.batch(DBSession.scala:705)
+[0m[[31mtrace[0m] [0mStack trace suppressed: run [34mlast compile:runMain[0m for the full output.[0m
+java.lang.RuntimeException: Nonzero exit code: 1
+	at scala.sys.package$.error(package.scala:27)
+[0m[[31mtrace[0m] [0mStack trace suppressed: run [34mlast compile:runMain[0m for the full output.[0m
+[0m[[31merror[0m] [0m(compile:[31mrunMain[0m) Nonzero exit code: 1[0m
+[0m[[31merror[0m] [0mTotal time: 13338 s, completed 8-Mar-2018 11:33:07 PM[0m
