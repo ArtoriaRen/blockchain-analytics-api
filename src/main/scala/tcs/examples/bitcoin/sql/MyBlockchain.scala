@@ -56,7 +56,7 @@ object MyBlockchain{
 //      mySQL)
 
     // scan the blockchain from first block to block height 1000
-    blockchain.start(430001).end(440000).foreach(block => {
+    blockchain.start(440001).end(460000).foreach(block => {
       // filter out coinbase transactions
         block.bitcoinTxs.filter(tx => tx.inputs(0).redeemedOutIndex == -1).foreach(tx => {
 
