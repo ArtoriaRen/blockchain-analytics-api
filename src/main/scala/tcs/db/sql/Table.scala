@@ -22,7 +22,6 @@ class Table(
              val createQuery: SQL[Nothing, NoExtractor],
              val insertQuery: SQL[Nothing, NoExtractor],
              val dbSettings: DatabaseSettings,
-             // RLY: Limit is reduced from 50000 to 10000
              val bulkInsertLimit: Int = 10000
            ) {
 
