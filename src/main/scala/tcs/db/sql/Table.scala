@@ -22,7 +22,8 @@ class Table(
              val createQuery: SQL[Nothing, NoExtractor],
              val insertQuery: SQL[Nothing, NoExtractor],
              val dbSettings: DatabaseSettings,
-             val bulkInsertLimit: Int = 50000
+             // RLY: reduce DB buffer size from 50000 to 10000
+             val bulkInsertLimit: Int = 10000
            ) {
 
   var buffer = ListBuffer[Seq[Any]]()
